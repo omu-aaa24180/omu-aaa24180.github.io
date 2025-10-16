@@ -23,7 +23,7 @@
             if (minutes < 10) minutes = '0' + minutes;
             if (seconds < 10) seconds = '0' + seconds;
 
-            var timeString = year + '年' + month + '月' + day + '日' + '('+ dayname[day] + ')'+ hours + ':' + minutes + ':' + seconds;
+            var timeString = year + '年' + month + '月' + date + '日' + '('+ dayname[day] + ')'+ hours + ':' + minutes + ':' + seconds;
             document.getElementById('clock').innerHTML = timeString;
         }
 
