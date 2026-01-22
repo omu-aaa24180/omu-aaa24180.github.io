@@ -57,7 +57,7 @@
             );
             map.addLayer(chiriinLayer);
 
-            L.control.layers({
+            const LayerControl = L.control.layers({
                 'OpenStreetMap': backgroundLayer,
                 '地理院地図(標準)': chiriinLayer,
             }).addTo(map);
@@ -80,6 +80,34 @@
                         )
                         .addTo(map);
                     L.geoJSON(json).addTo(markers); // クラスタリングレイヤーにGeoJSONデータをセット
+                    //チェックボックス
+                    LayerControl.addOverlay(markers, '学校');
+                });
+            fetch('./27000_1.geojson') // 指定避難所（大阪府）のGeoJSONを非同期読み込み
+                .then((res) => res.json())
+                .then((json) => {
+                    // クラスタリングレイヤーを作成し地図に追加
+                    const markers = L.markerClusterGroup()
+                        .bindPopup(
+                            (layer) => layer.feature.properties.P29_004, // ポップアップで避難所名を表示
+                        )
+                        .addTo(map);
+                    L.geoJSON(json).addTo(markers); // クラスタリングレイヤーにGeoJSONデータをセット
+                    //チェックボックス
+                    LayerControl.addOverlay(markers, '指定避難所');
+                });
+            fetch('./27000_2.geojson') // 緊急指定避難所（大阪府）のGeoJSONを非同期読み込み
+                .then((res) => res.json())
+                .then((json) => {
+                    // クラスタリングレイヤーを作成し地図に追加
+                    const markers = L.markerClusterGroup()
+                        .bindPopup(
+                            (layer) => layer.feature.properties.P29_004, // ポップアップで避難所名を表示
+                        )
+                        .addTo(map);
+                    L.geoJSON(json).addTo(markers); // クラスタリングレイヤーにGeoJSONデータをセット
+                    //チェックボックス
+                    LayerControl.addOverlay(markers, '緊急指定避難所');
                 });
             
                 // ローカルPC上のOSRMサーバで杉本キャンパスからなかもずキャンパスまでのルートを検索するURL
